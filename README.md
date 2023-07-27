@@ -1,1 +1,1 @@
-# Bellabeat-Wellness-Company-Data-Analysis
+# Bellabeat-Smart-Wellness-Device-Data-Analysis
