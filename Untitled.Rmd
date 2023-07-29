@@ -1,6 +1,6 @@
 ---
 title: '1'
-output: html_document::github_document
+output: github_document
 date: "2023-07-29"
 ---
 
