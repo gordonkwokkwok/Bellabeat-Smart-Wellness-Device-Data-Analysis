@@ -1,11 +1,6 @@
----
-title: "⭐️ Bellabeat Wellness Device Data Analysis"
-output: html_notebook
-editor_options: 
-  chunk_output_type: inline
----
+#⭐️ Bellabeat Wellness Device Data Analysis"
 
-<p align="center">
+<p align="center">  
   <img src="image/Bellabeat.png" alt="Bellabeat" width="700">
 </p>
 
