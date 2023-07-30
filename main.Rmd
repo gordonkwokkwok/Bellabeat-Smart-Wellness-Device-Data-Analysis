@@ -9,71 +9,93 @@ output: github_document
 
 # Contents  
 1. [Summary](#1.)
-    1.1. [Initializing Crypto Data Lists and Creating DataFrame](#1.1) 
-    1.2. [Function: Scrape Date List from CoinMarketCap](#1.2) 
 2. [Ask Phase](#2.)
-3. [Prepare Phase](#3.) 
-4. [Process Phase](#4.) 
-5. [Analyze and Share Phase](#5.) 
-6. [Act Phase (Conclusion)](#6) 
+    1. [Business Task](#2.1.)
+    2. [Key Stakeholders](#2.2.)
+3. [Prepare Phase](#3.)
+4. [Process Phase](#4.)
+    1. [Installing packages and opening libraries](#4.1.)
+    2. [Importing datasets](#4.2.)
+    3. [Preview our datasets](#4.3.)
+    4. [Cleaning and formatting](#4.4.)
+5. [Analyze and Share Phase](#5.)
+    1. [Daily Activity Analysis](#5.1.)
+    2. [Sleep Analysis](#5.2.)
+    3. [Weight Distribution Analysis](#5.3.)
+    4. [Correlation Analysis](#5.4.)
+6. [Act Phase](#6.)
+    1. [Final Conclusion](#6.1.)
+    2. [Key Findings and Recommendations](#6.2.)
+        1. [Daily Activity Analysis](#6.2.1.)
+        2. [Sleep Analysis Summary](#6.2.2.)
+        3. [Weight Distribution Summary](#6.2.3.)
+        4. [Correlation Analysis Summary](#6.2.4.)
+    3. [Business Applications](#6.3.)
+    4. [Future Directions](#6.4.)
 
-<a id="1."></a>
 # 1. Summary
+<a id="1."></a>
 
-<a id="2."></a>
+The project aims to uncover consumer usage patterns, identify growth opportunities, and optimize Bellabeat's marketing strategy. As a high-tech manufacturer of health-focused products for women, Bellabeat's mission is to excel in the global smart device market by empowering women with knowledge about their health and habits through beautifully designed technology and data-driven insights.
+
 # 2. Ask Phase
-# 2.1. Business Task
+<a id="2."></a>
 
-<a id="3."></a>
+## 2.1. Business Task
+<a id="2.1."></a>
+
+The business task is to analyze smart device fitness data for one of Bellabeat's products (such as the Bellabeat app, Leaf tracker, Time watch, or Spring water bottle) to gain insights into consumer usage patterns. The main objective is to identify growth opportunities and provide high-level recommendations that can enhance Bellabeat's marketing strategy. The ultimate goal is to empower women with knowledge about their health and habits through their health-focused smart devices, positioning Bellabeat as a leading player in the global smart device market.
+
+## 2.2. Key Stakeholders
+<a id="2.2."></a>
+
+1. Urška Sršen: Co-founder and Chief Creative Officer of Bellabeat.
+2. Sando Mur: Co-founder and key member of the Bellabeat executive team.
+3. Bellabeat Marketing Analytics Team
+4. Bellabeat's Executive Team
+
 # 3. Prepare Phase
-# 3.1. Dataset used
-# 3.2. Accessibility and privacy of data
-# 3.3. Information about our dataset
-# 3.4. Data organization and verification
-# 3.5. Data credibility and integrity
+<a id="3."></a>
 
-<a id="4."></a>
+## Deliverable: A Description of All Data Sources Used
+
+The primary data source for this data analysis is the "FitBit Fitness Tracker Data" obtained from Kaggle. This dataset contains personal fitness tracker data from thirty Fitbit users who consented to the submission of their minute-level output for physical activity, heart rate, and sleep monitoring. The data includes information about daily activity, steps, and heart rate, providing insights into users' habits. The dataset is made available through Mobius under the CC0 (Public Domain) license.
+
+To address potential limitations and enhance the analysis, additional data from another source may be considered. However, the specifics of this additional data source are not mentioned in the provided information. It is important to ensure that all data sources used are credible, comply with relevant licensing and privacy regulations, and have been verified for integrity before conducting the analysis. By combining and preparing these data sources appropriately, the data analyst will be better equipped to gain valuable insights into consumer usage patterns and address Bellabeat's marketing needs effectively.   
+
 # 4. Process Phase
-# 4.1. Installing packages and opening libraries
-# 4.2. Importing datasets
-# 4.3. Preview our datasets
-# 4.4. Cleaning and formatting
-# 4.5. Merging datasets
+<a id="4."></a>
 
-<a id="5."></a>
-# 5. Analyze and Share Phase
-# 5.1. Type of users per activity level
-# 5.2. Steps and minutes asleep per weekday
-# 5.3. Hourly steps throughout the day
-# 5.4. Correlations
-# 5.5. Use of smart device
-# 5.5.1. Days used smart device
-# 5.5.2. Time used smart device per day
+## 4.1. Installing packages and opening libraries
+<a id="4.1."></a>
 
-
-
-
-
-
-
-
-# 1. Load libraries
+### Load libraries
 ```{r}
+# install below if neccessary
 # install.packages("chron")
+# install.packages("tidyverse")
+# install.packages("lubridate")
+
 library(chron) # For working with times
 library(tidyverse) # For data manipulation and visualization
 library(lubridate) # For working with dates
-```
+library(ggplot2) # For data visualization
+```   
 
-# 2. Read CSV files into data frames
+## 4.2. Importing datasets
+<a id="4.2."></a>
+
+### Read CSV files into data frames
 ```{r}
-dailyActivity <- read_csv("dataset/dailyActivity_merged.csv")
-sleepDay <- read_csv("dataset/sleepDay_merged.csv")
-weightLogInfo <- read_csv("dataset/weightLogInfo_merged.csv")
+  dailyActivity <- read_csv("dataset/dailyActivity_merged.csv")
+  sleepDay <- read_csv("dataset/sleepDay_merged.csv")
+  weightLogInfo <- read_csv("dataset/weightLogInfo_merged.csv")
 ```
 
-# 3. Explore and clean the data
-## 3.1. Explore the Data
+## 4.3. Preview our datasets
+<a id="4.3."></a>
+
+### Explore the Data
 ```{r}
 # Explore data - Show the first few rows of each data frame
 head(dailyActivity)
@@ -87,7 +109,7 @@ sum(is.na(weightLogInfo))
 ```
 The "weightLogInfo" dataframe has 65 missing values.
 
-## 3.2. Find out missing values
+### Find out missing values
 ```{r}
 # Explore the weightLogInfo data frame
 summary(weightLogInfo)
@@ -101,8 +123,10 @@ col_missing
 ```
 The "Fat" column of the "weightLogInfo" dataframe has 65 missing value.
 
+## 4.4. Cleaning and formatting
+<a id="4.4."></a>
 
-## 3.3. Handle Missing Values
+### Handle Missing Values
 ```{r}
 # Impute missing values in the "Fat" column with the mean
 mean_fat <- mean(weightLogInfo$Fat, na.rm = TRUE)
@@ -110,10 +134,7 @@ weightLogInfo$Fat[is.na(weightLogInfo$Fat)] <- mean_fat
 ```
 It replaces the missing values in the "Fat" column with the mean value of the non-missing values in that column.
 
-
-
-## 3.4. Data Transformations
-### 3.4.1. Create the date and time columns to the datetime data type
+### Create the date and time columns to the datetime data type
 ```{r}
 dailyActivity$DateOnly <- as.Date(dailyActivity$ActivityDate, format = "%m/%d/%Y")
 
@@ -124,29 +145,115 @@ weightLogInfo$DateOnly <- as.Date(weightLogInfo$Date)
 weightLogInfo$TimeOnly <- times(format(weightLogInfo$Date, format = "%H:%M:%S"))
 ```
 
-# 4. Analyze the data
+# 5. Analyze and Share Phase
+<a id="5."></a>
+
+## 5.1. Daily Activity Analysis
+<a id="5.1."></a>
+```{r}
+# Calculate the average steps taken per participant
+averageSteps <- mean(dailyActivity$TotalSteps)
+
+# Calculate the total distance covered by all participants
+totalDistance <- sum(dailyActivity$TotalDistance)
+
+# Plot the distribution of Total Steps
+ggplot(dailyActivity, aes(x = TotalSteps)) + 
+  geom_histogram(binwidth = 1000, fill = "lightblue", color = "black") +
+  labs(x = "Total Steps", y = "Frequency", title = "Distribution of Total Steps")
+
+# Shapiro-Wilk test for normality
+shapiro.test(dailyActivity$TotalSteps)
+```
+The Daily Activity Analysis of the "Total Steps" data revealed a non-normal distribution, as confirmed by the Shapiro-Wilk test (p-value = 7.977e-09). Despite the histogram showing a bell-shaped appearance, the strong evidence against normality indicates that step counts are not evenly distributed around the mean. This implies that the majority of participants likely have varying step counts, leading to a skewed or non-uniform distribution. Considering the non-normality, it is recommended to employ non-parametric methods or transformations for further statistical analyses or modeling. Understanding the distribution's characteristics will aid in making appropriate data-driven decisions and meaningful interpretations.
+
+## 5.2. Sleep Analysis
+<a id="5.2."></a>
+```{r}
+# Calculate the average total minutes asleep per participant
+averageSleepMinutes <- mean(sleepDay$TotalMinutesAsleep)
+
+# Plot the distribution of Total Time in Bed
+ggplot(sleepDay, aes(x = TotalTimeInBed)) + 
+  geom_histogram(binwidth = 30, fill = "lightgreen", color = "black") +
+  labs(x = "Total Time in Bed (minutes)", y = "Frequency", title = "Distribution of Total Time in Bed")
+
+```
+The Sleep Analysis of the "TotalTimeInBed" data for the participants revealed a bell-shaped distribution, suggesting a roughly normal distribution. The histogram displayed a curve with most participants having total time in bed clustered around the mean, while fewer participants had longer or shorter sleep durations. This normal-like distribution indicates that the majority of participants may have similar sleep patterns, with deviations towards shorter or longer sleep durations being less common. Researchers can leverage this characteristic to apply various statistical methods that assume normality for further analysis and gain insights into participants' sleep patterns. However, it is crucial to be mindful of the assumptions and tailor analyses accordingly when interpreting results related to sleep behavior and health.
 
 
+## 5.3. Weight Distribution Analysis
+<a id="5.3."></a>
+```{r}
+# Plot the distribution of Weight
+ggplot(weightLogInfo, aes(x = WeightKg)) + 
+  geom_histogram(binwidth = 1, fill = "lightgreen", color = "black") +
+  labs(x = "Weight (Kg)", y = "Frequency", title = "Distribution of Weight")
+
+```
+The Weight Distribution Analysis of the participants' data revealed a roughly symmetric distribution of weights, as depicted by the histogram. The majority of participants' weights were clustered around the center, with fewer individuals having weights at the extreme ends of the distribution. This indicates a relatively balanced distribution of weights across the participants. However, it is essential to examine potential outliers or specific weight ranges that may be overrepresented or underrepresented in the data. The analysis provides valuable insights into the overall weight distribution of the participants and serves as a basis for further investigations into factors that may influence weight variations in the studied population.
 
 
-# 5. Address the business questions
+## 5.4. Correlation Analysis
+<a id="5.4."></a>
 
+```{r}
+# Calculate correlation matrix
+correlation_matrix <- cor(weightLogInfo[c("WeightKg", "BMI")], use = "complete.obs")
 
+# Print the correlation matrix
+print(correlation_matrix)
+```
+The correlation analysis between "WeightKg" and "BMI" columns in the weightLogInfo dataset indicates a positive correlation of approximately 0.74. This value suggests a moderately strong linear relationship between weight and BMI in the studied population. As weight increases, BMI tends to increase as well, and vice versa. This finding aligns with the general understanding that BMI is influenced by weight and height, and a higher weight often corresponds to a higher BMI. The correlation analysis provides valuable insights into the association between weight and BMI in the dataset and serves as a basis for further exploration of potential health-related implications and trends related to body weight and body mass index in the studied population.
 
-# 6. Visualize the results
-
-
-
-# 7. Draw conclusions and make recommendations
-
-
-
-
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
-
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
-
-# 6. Act Phase (Conclusion)
+# 6. Act Phase
 <a id="6"></a>
+
+## 6.1. Final Conclusion
+<a id="6.1."></a>
+Based on the data analysis, the team has gained valuable insights into the daily activity, sleep, and weight log data. The distribution of "Total Steps" exhibited a non-normal pattern, indicating that the participants' step counts were not evenly distributed around the mean. The sleep analysis showed a bell-shaped distribution for "TotalTimeInBed," suggesting a roughly normal distribution of sleep durations among the participants. Furthermore, the correlation analysis between "WeightKg" and "BMI" demonstrated a moderately strong positive correlation of approximately 0.74, highlighting the relationship between body weight and body mass index.
+
+## 6.2. Key Findings and Recommendations
+<a id="6.2."></a>
+The non-normal distribution of "Total Steps" suggests that participants had varied step counts. The team recommends using non-parametric methods or transformations for further analysis to accommodate the non-normality.
+
+It is advised to explore factors contributing to the observed variations in daily activity, allowing a deeper understanding of the determinants of physical activity levels among participants.
+
+### 6.2.1 Daily Activity Analysis Summary
+<a id="6.2.1."></a>
+The bell-shaped distribution of "TotalTimeInBed" indicates a normal-like distribution of sleep durations among participants, which allows for the application of standard statistical methods.
+
+The team recommends investigating factors influencing sleep patterns and durations to identify potential areas for intervention or improvement in sleep quality.
+
+### 6.2.2. Sleep Analysis Summary
+<a id="6.2.2."></a>
+
+### 6.2.3. Weight Distribution Summary
+<a id="6.2.3."></a>
+The distribution appears to be roughly bell-shaped, suggesting that most participants' weights are concentrated around the mean value.
+
+The data exhibits symmetry, with weights evenly distributed on both sides of the mean.
+There are no apparent gaps or significant irregularities in the distribution, indicating that the data is relatively continuous and complete.
+### 6.2.4. Correlation Analysis Summary
+<a id="6.2.4."></a>
+The moderate positive correlation (0.74) between "WeightKg" and "BMI" indicates a strong relationship between weight and body mass index. The team suggests utilizing this correlation to identify individuals who may benefit from personalized weight management strategies.
+
+Participants should be encouraged to maintain a healthy weight, as this may positively impact their BMI and overall health.
+
+
+## 6.3.3. Business Applications
+<a id="6.3."></a>
+The insights from the analysis can be applied to enhance health and wellness programs for the participants.'
+Leveraging the correlations between weight and BMI, the team can identify individuals who may require personalized weight management strategies.
+
+The distribution of daily activity data can be used to tailor physical activity recommendations for participants with different activity levels.
+
+Utilizing the sleep duration distribution, the team can design sleep improvement interventions for individuals experiencing sleep disturbances.
+
+## 6.4. Future Directions
+<a id="6.4."></a>
+To gain a deeper understanding of factors affecting daily activity, sleep patterns, and weight, consider collecting additional demographic and lifestyle data.
+
+Conduct longitudinal studies to analyze trends and changes in participants' daily activity, sleep, and weight over time.
+
+Explore machine learning techniques to predict and forecast participants' health metrics based on the gathered data.

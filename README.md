@@ -6,37 +6,33 @@ editor_options:
 ---
 
 <p align="center">
-  <img src="/image/Bellabeat.png" alt="Bellabeat" width="700">
+  <img src="image/Bellabeat.png" alt="Bellabeat" width="700">
 </p>
 
 ## 📚 Introduction
-Write an introduction for this project.
+In this data analysis project, it explores and examines the daily activity, sleep patterns, and weight log data. Leveraging statistical techniques and data visualization, the project aims to gain valuable insights into participants' physical activity levels, sleep durations, and weight variations. By conducting correlation analyses, distribution assessments, and trend evaluations, the team seeks to uncover meaningful patterns and associations within the dataset. The findings from this comprehensive analysis will guide evidence-based decision-making and support the development of targeted health and wellness strategies to improve participants' overall well-being. Through meticulous examination of the data, the team endeavors to offer valuable recommendations for fostering healthier lifestyles and promoting sustainable health outcomes for the studied population.
 
 ## 🎯 Objective
-Write some objectives for this project.
+- Analyze the daily activity data to understand participants' physical activity levels and identify patterns or trends.
+
+- Investigate sleep patterns and durations among participants to gain insights into sleep quality and potential areas for improvement.
+
+- Explore the weight distribution of the participants to understand variations and identify potential outliers or specific weight ranges of interest.
 
 ## 📋 Prerequisite
 
 ### 🔧 Tool
 - RStudio (Version 2023.06.1+524)
-
-Use following command to check version
-```
-python --version
-git --version
-```
+- Jupyter Notebook
 
 ### 📖 Library
 Use following command to install the following libraries:
 ```
-pip3 install numpy
-pip3 install pandas
-pip3 install matplotlib
-```
-
-## ⚙️ Command to run the project:
-```
+conda create -n r_env python=3.9
 conda activate r_env
+conda install jupyter
+conda install -c r r-essentials
+conda install -c conda-forge rpy2
 jupyter notebook
 ```
 
@@ -51,7 +47,7 @@ jupyter notebook
 
 I would like to express our gratitude to the following individuals and organizations for their contributions and support in making this project possible:
 
-- [Name of Contributor/Organization 1](https://example.com): Description of their contribution or support.
+- [Möbius](https://www.kaggle.com/arashnic): Sharing this valuable dataset.
 
 I am thankful for their valuable input, feedback, and assistance throughout the development process. Their expertise and dedication have greatly enhanced the quality and functionality of this project.
 
@@ -59,24 +55,3 @@ I am thankful for their valuable input, feedback, and assistance throughout the 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/gordonhei25)
 
 Give a ⭐️ if this project helped you!
-
-
-
-
-
-
-
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
-
-```{r}
-plot(cars)
-```
-
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
-
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
-
