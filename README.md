@@ -34,7 +34,7 @@ jupyter notebook
 
 ## 🌐 Dataset
 - [Kaggle](https://www.kaggle.com/datasets/arashnic/fitbit?resource=download) ; or
-- [Download Here](https)
+- [Download Here](https://github.com/gordonkwokkwok/Bellabeat-Smart-Wellness-Device-Data-Analysis/tree/main/dataset)
 
 ## 👥 Contributer
 - [Gordon Kwok](https://www.linkedin.com/in/gordonkwokch/)
