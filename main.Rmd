@@ -2,11 +2,6 @@
 title: "Bellabeat Wellness Device Data Analysis"
 output: github_document
 ---
-<p align="center">
-  <img src="image/Bellabeat.png" alt="Bellabeat" width="700">
-</p>
-
-
 # Contents  
 1. [Summary](#1.)
 2. [Ask Phase](#2.)
