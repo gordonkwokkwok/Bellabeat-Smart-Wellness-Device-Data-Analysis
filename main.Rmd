@@ -1,15 +1,146 @@
 ---
-title: "R Notebook"
+title: "Bellabeat Wellness Device Data Analysis"
 output: github_document
 ---
+<p align="center">
+  <img src="image/Bellabeat.png" alt="Bellabeat" width="700">
+</p>
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+# Contents  
+1. [Summary](#1.)
+    1.1. [Initializing Crypto Data Lists and Creating DataFrame](#1.1) 
+    1.2. [Function: Scrape Date List from CoinMarketCap](#1.2) 
+2. [Ask Phase](#2.)
+3. [Prepare Phase](#3.) 
+4. [Process Phase](#4.) 
+5. [Analyze and Share Phase](#5.) 
+6. [Act Phase (Conclusion)](#6) 
 
+<a id="1."></a>
+# 1. Summary
+
+<a id="2."></a>
+# 2. Ask Phase
+# 2.1. Business Task
+
+<a id="3."></a>
+# 3. Prepare Phase
+# 3.1. Dataset used
+# 3.2. Accessibility and privacy of data
+# 3.3. Information about our dataset
+# 3.4. Data organization and verification
+# 3.5. Data credibility and integrity
+
+<a id="4."></a>
+# 4. Process Phase
+# 4.1. Installing packages and opening libraries
+# 4.2. Importing datasets
+# 4.3. Preview our datasets
+# 4.4. Cleaning and formatting
+# 4.5. Merging datasets
+
+<a id="5."></a>
+# 5. Analyze and Share Phase
+# 5.1. Type of users per activity level
+# 5.2. Steps and minutes asleep per weekday
+# 5.3. Hourly steps throughout the day
+# 5.4. Correlations
+# 5.5. Use of smart device
+# 5.5.1. Days used smart device
+# 5.5.2. Time used smart device per day
+
+
+
+
+
+
+
+
+# 1. Load libraries
 ```{r}
-plot(cars)
+# install.packages("chron")
+library(chron) # For working with times
+library(tidyverse) # For data manipulation and visualization
+library(lubridate) # For working with dates
 ```
+
+# 2. Read CSV files into data frames
+```{r}
+dailyActivity <- read_csv("dataset/dailyActivity_merged.csv")
+sleepDay <- read_csv("dataset/sleepDay_merged.csv")
+weightLogInfo <- read_csv("dataset/weightLogInfo_merged.csv")
+```
+
+# 3. Explore and clean the data
+## 3.1. Explore the Data
+```{r}
+# Explore data - Show the first few rows of each data frame
+head(dailyActivity)
+head(sleepDay)
+head(weightLogInfo)
+
+# Check for missing values
+sum(is.na(dailyActivity))
+sum(is.na(sleepDay))
+sum(is.na(weightLogInfo))
+```
+The "weightLogInfo" dataframe has 65 missing values.
+
+## 3.2. Find out missing values
+```{r}
+# Explore the weightLogInfo data frame
+summary(weightLogInfo)
+
+# Check the structure of the data frame
+str(weightLogInfo)
+
+# Count the number of missing values in each column
+col_missing <- colSums(is.na(weightLogInfo))
+col_missing
+```
+The "Fat" column of the "weightLogInfo" dataframe has 65 missing value.
+
+
+## 3.3. Handle Missing Values
+```{r}
+# Impute missing values in the "Fat" column with the mean
+mean_fat <- mean(weightLogInfo$Fat, na.rm = TRUE)
+weightLogInfo$Fat[is.na(weightLogInfo$Fat)] <- mean_fat
+```
+It replaces the missing values in the "Fat" column with the mean value of the non-missing values in that column.
+
+
+
+## 3.4. Data Transformations
+### 3.4.1. Create the date and time columns to the datetime data type
+```{r}
+dailyActivity$DateOnly <- as.Date(dailyActivity$ActivityDate, format = "%m/%d/%Y")
+
+sleepDay$DateOnly <- as.POSIXct(sleepDay$SleepDay, format = "%m/%d/%Y %I:%M:%S %p")
+
+weightLogInfo$Date <- as.POSIXct(weightLogInfo$Date, format = "%m/%d/%Y %I:%M:%S %p")
+weightLogInfo$DateOnly <- as.Date(weightLogInfo$Date)
+weightLogInfo$TimeOnly <- times(format(weightLogInfo$Date, format = "%H:%M:%S"))
+```
+
+# 4. Analyze the data
+
+
+
+
+# 5. Address the business questions
+
+
+
+# 6. Visualize the results
+
+
+
+# 7. Draw conclusions and make recommendations
+
+
+
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
 
@@ -17,3 +148,5 @@ When you save the notebook, an HTML file containing the code and output will be 
 
 The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
 
+# 6. Act Phase (Conclusion)
+<a id="6"></a>

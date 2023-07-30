@@ -6,7 +6,7 @@ editor_options:
 ---
 
 <p align="center">
-Add a Image
+  <img src="/image/Bellabeat.png" alt="Bellabeat" width="700">
 </p>
 
 ## 📚 Introduction
