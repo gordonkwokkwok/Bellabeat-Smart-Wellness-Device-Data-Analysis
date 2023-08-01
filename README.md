@@ -39,7 +39,7 @@ jupyter notebook
 ## 👥 Contributer
 - [Gordon Kwok](https://www.linkedin.com/in/gordonkwokch/)
 
-## 🤝 Acknowledgments
+## 🤝 Acknowledgment
 
 I would like to express our gratitude to the following individuals and organizations for their contributions and support in making this project possible:
 
