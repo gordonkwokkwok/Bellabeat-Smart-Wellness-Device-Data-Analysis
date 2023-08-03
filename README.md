@@ -1,4 +1,4 @@
-# ⭐️ Bellabeat Wellness Device Data Analysis"
+# ⭐️ Bellabeat Wellness Device Data Analysis
 
 <p align="center">
   <img src="https://github.com/gordonkwokkwok/Bellabeat-Smart-Wellness-Device-Data-Analysis/assets/112631794/6744e5b1-02d5-4718-b2e5-a88c11f3dbfd" alt="Bellabeat" width="700">
